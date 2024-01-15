@@ -1,11 +1,12 @@
+import Button from "./components/ui/Button";
 import Container from "./components/ui/Container";
 
 function App() {
   return (
     <Container>
-      <h1 className="">Main container</h1>
-      <button className="btn btn-primary">click</button>
-      <button className="btn btn-danger">click</button>
+      <div className="h-screen w-full flex justify-center items-center">
+        <Button variant={"outline"} className={"w-[500px]"} />
+      </div>{" "}
     </Container>
   );
 }
