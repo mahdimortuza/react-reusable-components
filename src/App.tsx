@@ -1,22 +1,23 @@
-import { FormEvent, useState } from "react";
-import Button from "./components/ui/Button";
+// import { FormEvent, useState } from "react";
+// import Button from "./components/ui/Button";
+import NormalForm from "./components/normalForm/NormalForm";
 import Container from "./components/ui/Container";
-import Modal from "./components/ui/Modal";
+// import Modal from "./components/ui/Modal";
 
 function App() {
-  const [modal, setModal] = useState(false);
-  const handleModalClose = () => {
-    setModal((prev) => !prev);
-  };
+  // const [modal, setModal] = useState(false);
+  // const handleModalClose = () => {
+  //   setModal((prev) => !prev);
+  // };
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    console.log("clicked");
-  };
+  // const handleSubmit = (e: FormEvent) => {
+  //   e.preventDefault();
+  //   console.log("clicked");
+  // };
 
   return (
     <Container>
-      <div className=" h-screen w-full flex justify-center items-center">
+      {/* <div className=" h-screen w-full flex justify-center items-center">
         <Button onClick={() => setModal((prev) => !prev)}>open modal</Button>
         <Modal isOpen={modal} onClose={handleModalClose}>
           <Modal.Header>
@@ -28,7 +29,9 @@ function App() {
             <input type="submit" />
           </form>
         </Modal>
-      </div>
+      </div> */}
+
+      <NormalForm />
     </Container>
   );
 }
