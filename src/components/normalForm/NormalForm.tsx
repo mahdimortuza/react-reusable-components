@@ -1,11 +1,19 @@
-import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FieldValues, useForm } from "react-hook-form";
 import cn from "../../utils/cn";
 import Button from "../ui/Button";
+import { TNormalForm, signUpSchema } from "./validation";
 
 const NormalForm = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TNormalForm>({
+    resolver: zodResolver(signUpSchema),
+  });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: FieldValues) => {
     console.log(data);
   };
   const double = true;
@@ -30,6 +38,9 @@ const NormalForm = () => {
             Name
           </label>
           <input className="" type="text" id="name" {...register("name")} />
+          {errors.name && (
+            <span className="text-xs text-red-500">{errors.name.message}</span>
+          )}
         </div>
         <div className="w-full max-w-md">
           <label className="block" htmlFor="email">
@@ -37,10 +48,13 @@ const NormalForm = () => {
           </label>
           <input
             className="w-full"
-            type="text"
-            id="name"
-            {...register("name")}
+            type="email"
+            id="email"
+            {...register("email")}
           />
+          {errors.email && (
+            <span className="text-xs text-red-500">{errors.email.message}</span>
+          )}
         </div>
         <div className="w-full max-w-md">
           <label className="block" htmlFor="password">
@@ -48,33 +62,15 @@ const NormalForm = () => {
           </label>
           <input
             className="w-full"
-            type="text"
-            id="name"
-            {...register("name")}
+            type="password"
+            id="password"
+            {...register("password", { required: true, minLength: 8 })}
           />
-        </div>
-        <div className="w-full max-w-md">
-          <label className="block" htmlFor="password">
-            Password
-          </label>
-          <select>
-            <option>one</option>
-            <option>two</option>
-            <option>three</option>
-            <option>four</option>
-          </select>
-        </div>
-        <div className="w-full max-w-md">
-          <label className="block" htmlFor="textarea">
-            Textarea
-          </label>
-          <textarea></textarea>
-        </div>
-        <div className="w-full max-w-md">
-          <label className="block" htmlFor="textarea">
-            Textarea
-          </label>
-          <input type="checkbox" className=""></input>
+          {errors.password && (
+            <span className="text-xs text-red-500">
+              {errors.password.message}
+            </span>
+          )}
         </div>
       </div>
       <div
