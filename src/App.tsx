@@ -1,7 +1,13 @@
 // import { FormEvent, useState } from "react";
 // import Button from "./components/ui/Button";
-import { FieldValues, useForm } from "react-hook-form";
-import { Form, FormSection, FormSubmit } from "./components/reusableForm";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Form,
+  FormSection,
+  FormSubmit,
+  Input,
+} from "./components/reusableForm";
 import Container from "./components/ui/Container";
 // import Modal from "./components/ui/Modal";
 
@@ -20,11 +26,19 @@ function App() {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm();
+  } = useForm<TTest>();
 
   const onSubmit = (data: FieldValues) => {
     console.log(data);
   };
+
+  const TestSchema = z.object({
+    name: z.string(),
+    email: z.string().email(),
+  });
+
+  type TTest = z.infer<typeof TestSchema>;
+
   return (
     <Container>
       {/* <div className=" h-screen w-full flex justify-center items-center">
@@ -41,7 +55,7 @@ function App() {
         </Modal>
       </div> */}
 
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit) as SubmitHandler<FieldValues>}>
         <FormSection>
           <div className="w-full max-w-md">
             <label className="block" htmlFor="name">
@@ -55,6 +69,12 @@ function App() {
             )}
           </div>
         </FormSection>
+        <Input
+          type="email"
+          register={register("email")}
+          errors={errors}
+          label="Email"
+        />
         <FormSubmit />
       </Form>
     </Container>
